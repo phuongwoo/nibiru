@@ -1,0 +1,82 @@
+========== Add New Key
+
+nibid keys add wallet
+
+===== Recover Existing Key
+
+nibid keys add wallet --recover
+
+===== List All Keys
+
+nibid keys list
+
+===== Delete Key
+
+nibid keys delete wallet
+
+===== Export Key (save to wallet.backup)
+
+nibid keys export wallet
+
+
+============ Create New Validator
+
+nibid tx staking create-validator \
+--amount=1000000unibi \
+--pubkey=$(nibid tendermint show-validator) \
+--moniker="Moniker" \
+--identity=FFB0AA51A2DF5954 \
+--details="I'm sexy and I know it😉" \
+--chain-id=nibiru-testnet-1 \
+--commission-rate=0.10 \
+--commission-max-rate=0.20 \
+--commission-max-change-rate=0.01 \
+--min-self-delegation=1 \
+--from=wallet \
+--gas-prices=0.1unibi \
+--gas-adjustment=1.5 \
+--gas=auto \
+-y 
+
+====== Edit Existing Validator
+
+nibid tx staking edit-validator \
+--new-moniker="Moniker" \
+--identity=FFB0AA51A2DF5954 \
+--details="I'm sexy and I know it😉" \
+--chain-id=nibiru-testnet-1 \
+--commission-rate=0.1 \
+--from=wallet \
+--gas-prices=0.1unibi \
+--gas-adjustment=1.5 \
+--gas=auto \
+-y
+
+======= Withdraw Rewards From All Validators
+
+nibid tx distribution withdraw-all-rewards --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
+Withdraw Commission And Rewards From Your Validator
+
+nibid tx distribution withdraw-rewards $(nibid keys show wallet --bech val -a) --commission --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
+Delegate to yourself
+
+nibid tx staking delegate $(nibid keys show wallet --bech val -a) 1000000unibi --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
+Delegate
+
+nibid tx staking delegate YOUR_TO_VALOPER_ADDRESS 1000000unibi --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
+Redelegate
+
+nibid tx staking redelegate $(nibid keys show wallet --bech val -a) YOUR_TO_VALOPER_ADDRESS 1000000unibi --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
+Unbond
+
+nibid tx staking unbond $(nibid keys show wallet --bech val -a) 1000000unibi --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
+Send
+
+nibid tx bank send wallet YOUR_TO_WALLET_ADDRESS 1000000unibi --from wallet --chain-id nibiru-testnet-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y
+
